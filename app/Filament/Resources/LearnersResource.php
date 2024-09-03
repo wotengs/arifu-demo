@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Exports\LearnersExporter;
 use App\Filament\Resources\LearnersResource\Pages;
 use App\Filament\Resources\LearnersResource\Widgets\AbandonedWidget;
 use App\Filament\Resources\LearnersResource\Widgets\CompletionRateWidget;
@@ -12,6 +13,8 @@ use App\Models\Learners;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ExportAction;
+use Filament\Tables\Actions\ExportBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -42,6 +45,10 @@ class LearnersResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('id')
+                ->sortable()
+                    ->searchable()
+                    ->toggleable(),
                 TextColumn::make('name')
                     ->sortable()
                     ->searchable()
@@ -66,10 +73,16 @@ class LearnersResource extends Resource
                // Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
+
+            ->headerActions([
+                ExportAction::make()->exporter(LearnersExporter::class),
+            ])
+
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+                ExportBulkAction::make()->exporter(LearnersExporter::class),
             ]);
     }
 

@@ -13,6 +13,9 @@ class MainDashBoardWidgets extends BaseWidget
 {
 
   use InteractsWithPageFilters;
+
+  protected static ?int $sort = 1;
+
     protected function getStats(): array
     {
 
