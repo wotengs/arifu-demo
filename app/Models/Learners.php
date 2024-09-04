@@ -24,7 +24,7 @@ class Learners extends Model
     // Relationship to programs (a learner can be enrolled in many programs)
     public function programs()
     {
-        return $this->belongsToMany(Program::class);
+        return $this->belongsToMany(Program::class, 'learners_program'); // Assuming 'learners_program' is the pivot table
     }
 
     // Relationship to lessons

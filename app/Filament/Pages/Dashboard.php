@@ -10,7 +10,9 @@ class Dashboard extends \Filament\Pages\Dashboard
 {
     use HasFiltersForm;
 
-    public function filtersForm(Form $form): Form
+    protected static ?int $navigationSort =4;
+  
+   public function filtersForm(Form $form): Form
     {
         return $form->schema([
             DatePicker::make('startDate')
@@ -29,7 +31,11 @@ class Dashboard extends \Filament\Pages\Dashboard
             // ->extraAttributes(['style' => 'text-align: right;']),
 
         ]);
+
+        
     }
 
 
+
+ 
 }

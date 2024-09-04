@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
 
-            CommentsSeeder::class,
+            LearnersInProgramSeeder::class,
 
 
         ]);
@@ -60,6 +60,13 @@ class DatabaseSeeder extends Seeder
 
         ]);
 
-        
+        $this->call([
+
+            CommentsSeeder::class,
+
+
+        ]);
+
+              
     }
 }

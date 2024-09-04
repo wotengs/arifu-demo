@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Widgets;
+namespace App\Filament\Resources\LearnersResource\Widgets;
 
 use App\Models\Learners;
 use Filament\Widgets\ChartWidget;
@@ -9,21 +9,21 @@ use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
 use Illuminate\Support\Carbon;
 
-class GrowthChartWidget extends ChartWidget
+class TotalnActiveLearnersChartWidget extends ChartWidget
 {
+    
 use InteractsWithPageFilters;
 
-    protected static ?string $heading = 'Growth Rate';
+    protected static ?string $heading = 'Active Learners & Total Learners';
 
     protected int | string | array $columnSpan = 'full';
 
-    protected static ?int $sort = 2;
 
     protected function getData(): array
     {
 
-    $start = $this->filters['startDate'];
-    $end = $this->filters['endDate'];
+    $start = $this->filters['startDate'] ?? \null ;
+    $end = $this->filters['endDate'] ?? \null;
 
         // Retrieve the trend data for each month
         $data = Trend::model(Learners::class)

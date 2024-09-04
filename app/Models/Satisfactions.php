@@ -27,9 +27,4 @@ class Satisfactions extends Model
         return $this->belongsTo(Learners::class, 'learners_id');
     }
 
-    // Relationship to the program related to the satisfaction
-    public function program()
-    {
-        return $this->belongsTo(Program::class, 'program_id');
-    }
-}
+   }

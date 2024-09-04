@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\DB;
 
 class LearnersAnalyticsWidgets extends BaseWidget
 {
+
+    //protected int | string | array $columnSpan = 'full';
+
     protected function getCards(): array
     {
         $startOfMonth = now()->startOfMonth();

@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CommentResource\Pages;
 use App\Models\Comment;
+use Filament\Actions\Action;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
 use Filament\Tables\Filters\SelectFilter;
@@ -36,7 +37,8 @@ class CommentResource extends Resource
 
     protected static ?string $modelLabel = 'FeedBack';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 5;
+
 
     public static function form(Form $form): Form
     {
@@ -84,7 +86,9 @@ class CommentResource extends Resource
                 TextColumn::make('comment')
                 ->label('FeedBack')
                     ->searchable()
-                    ->toggleable(),
+                    ->toggleable()
+                    ->wrap()
+                    ->limit(45),
                     TextColumn::make('created_at')
                     ->label('Published On')
                     ->date()
@@ -122,6 +126,13 @@ class CommentResource extends Resource
             //
         ];
     }
+    // protected function getHeaderActions(): array
+    // {
+    //     return [
+    //         Action::make('View By Program')
+    //         ->url('/'),
+    //     ];
+    // }
 
     public static function getPages(): array
     {

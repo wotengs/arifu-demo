@@ -26,7 +26,7 @@ class Program extends Model
     // Relationship to satisfactions (a program can receive many satisfaction feedbacks)
     public function satisfactions()
     {
-        return $this->hasMany(Satisfactions::class);
+        return $this->morphMany(Satisfactions::class, 'satisfiable');
     }
 
     // Relationship to user
@@ -44,6 +44,6 @@ class Program extends Model
     // Relationship to learners (many-to-many)
     public function learners()
     {
-        return $this->belongsToMany(Learners::class);
+        return $this->belongsToMany(Learners::class, 'learners_program'); // Assuming 'learners_program' is the pivot table
     }
 }

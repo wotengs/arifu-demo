@@ -22,6 +22,7 @@ class MainDashBoardWidgets extends BaseWidget
             $start = $this->filters['startDate'];
             $end = $this->filters['endDate'];
 
+//dd($this->filters['startDate']);
 
         return [
           Stat::make('New learners Last Month', Learners:: when($start, 
