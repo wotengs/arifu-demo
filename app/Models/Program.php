@@ -1,4 +1,6 @@
 <?php
+
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +15,6 @@ class Program extends Model
 
     protected $fillable = [
         'name',
-        'lessons',
         'user_id',
     ];
 

@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('program', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->smallInteger('lessons');
+            $table->smallInteger('lessons')->default(0);
             $table->timestamp('published_at')->nullable();
             $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->timestamps();

@@ -34,10 +34,6 @@ class ProgramResource extends Resource
                         TextInput::make('name')
                             ->required()
                             ->unique(ignoreRecord: true),
-                        TextInput::make('lessons')
-                            ->required()
-                            ->numeric()
-                            ->label('No. of Lessons'),
                     ])->collapsible()->persistCollapsed(),
             ])->columns(1);
     }

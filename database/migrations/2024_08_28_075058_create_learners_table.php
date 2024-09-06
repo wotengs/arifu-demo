@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone_number');
-            $table->string('email')->unique();
-            $table->smallInteger('programs_completed');
+            $table->string('email')->nullable()->unique();
+            $table->rememberToken();
+            $table->smallInteger('programs_completed')->default(0);
             $table->timestamps();
         });
     }

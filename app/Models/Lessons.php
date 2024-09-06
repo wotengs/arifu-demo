@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Program;
 
 class Lessons extends Model
 {
@@ -19,14 +20,26 @@ class Lessons extends Model
         'program_id',
     ];
 
-    public function authors()
+    protected static function boot()
     {
-        return $this->belongsToMany(User::class, 'lessons_user')->withPivot(['order'])->withTimestamps();
-    }
+        parent::boot();
 
-    public function learner()
-    {
-        return $this->belongsToMany(Learners::class);
+        // Automatically increment the lessons count when a lesson is created
+        static::created(function ($lesson) {
+            // Increment the lessons count in the related program
+            $program = Program::find($lesson->program_id);
+            if ($program) {
+                $program->increment('lessons');
+            }
+        });
+
+        // Automatically decrement the lessons count when a lesson is deleted
+        static::deleted(function ($lesson) {
+            $program = Program::find($lesson->program_id);
+            if ($program) {
+                $program->decrement('lessons');
+            }
+        });
     }
 
     public function program()
