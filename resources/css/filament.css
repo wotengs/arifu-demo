@@ -1,0 +1,62 @@
+@import  '../../public/css/filament/filament/app.css';
+
+.fi-simple-main{
+    @apply bg-red-500;
+}
+
+.fi-sidebar-nav{
+    @apply bg-[#233061];
+}
+
+.fi-sidebar-item-label{
+    @apply text-white;
+}
+
+.fi-sidebar-item{
+    @apply hover:bg-[#D9D9D980] hover:text-black rounded-lg;
+}
+
+.fi-sidebar-group-label{
+    @apply text-white;
+}
+
+.fi-wi-stats-overview-stat{
+    @apply bg-[#CDEBFF];
+}
+
+.fi-section-content{
+    @apply bg-[#F7F7F7];
+}
+
+.fi-section-header{
+    @apply bg-[#F7F7F7] border-none ;
+}
+
+.fi-section-header-heading{
+    @apply  text-[#233061];
+}
+
+.fi-header-heading{
+    @apply text-[#233061];
+}
+
+.fi-wi-stats-overview-stat-label{
+    @apply text-[#233061];
+}
+
+.fi-wi-stats-overview-stat-value{
+    @apply text-[#233061] text-5xl
+}
+
+.fi-wi-stats-overview-stat-description{
+    @apply text-[#233061]
+}
+
+.fi-btn{
+    @apply rounded-full bg-[#233061];
+}
+
+.fi-user-avatar{
+    @apply bg-[#D9D9D9];
+}
+
