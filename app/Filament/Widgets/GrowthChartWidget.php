@@ -73,12 +73,29 @@ class GrowthChartWidget extends ChartWidget
         {
             scales: {
                 y: {
-                    
+
                     grid: {
                         display : false
+                    },
+                    title: {
+                       display: true,
+                       text: 'Number of learners',
+                       color: '#233061',
+                       weight: 'bold',
+                       font: {
+                          family: 'Monserrat',
+                          size: 20,
+
+                        },
                     }
                 },
             },
+          
+
+
+
+
+
         }
     JS);
     }
