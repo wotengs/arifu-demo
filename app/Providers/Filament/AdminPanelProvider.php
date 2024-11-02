@@ -30,10 +30,12 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => Color::Indigo,
+                'primary' => '#233061',
             ])
             ->sidebarCollapsibleOnDesktop()
-
+            ->brandLogo(asset('Images/logo.svg'))
+            ->brandLogoHeight('5rem')
+            ->brandName('Arifu')
             ->font('Montserrat')
             ->databaseNotifications()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
