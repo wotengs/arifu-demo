@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\LearnersResource\Widgets;
 
 use App\Models\Learners;
+use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
 use Filament\Widgets\Concerns\InteractsWithPageFilters;
 use Flowframe\Trend\Trend;
@@ -11,7 +12,7 @@ use Illuminate\Support\Carbon;
 
 class TotalnActiveLearnersChartWidget extends ChartWidget
 {
-    
+
 use InteractsWithPageFilters;
 
     protected static ?string $heading = 'Active Learners & Total Learners';
@@ -40,7 +41,7 @@ use InteractsWithPageFilters;
         });
 
         // Define the color for the chart line and fill
-        $color = '#4F46E5'; // You can change this to any color you prefer
+        $color = ' #529FD5'; // You can change this to any color you prefer
 
         return [
             'datasets' => [
@@ -64,4 +65,29 @@ use InteractsWithPageFilters;
     {
         return 'line'; // You can use 'area' or 'line' depending on your preference
     }
+
+
+    protected function getOptions(): array|RawJs|null
+    {
+        return RawJs::make(<<<JS
+        {
+            scales: {
+                y: {
+
+                    grid: {
+                        display : false
+                    },
+
+                },
+            },
+
+
+
+
+
+
+        }
+    JS);
+    }
+
 }
