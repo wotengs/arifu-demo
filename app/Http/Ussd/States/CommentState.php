@@ -14,10 +14,10 @@ class CommentState extends State
 
     protected function afterRendering(string $argument): void
     {
-        $comment = $this->input;
+      
 
-        if (!empty($comment)) {
-            $this->record->set('comment', $comment);
+        if (!empty("input")) {
+            $this->record->set('comment', "input");
             return ProgramComments::class;
         }
 

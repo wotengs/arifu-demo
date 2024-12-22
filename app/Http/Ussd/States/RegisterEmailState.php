@@ -13,21 +13,22 @@ class RegisterEmailState extends State
     {
         $this->menu = new Menu([
             "1" => "Please enter your email address:",
-            "2" => "Skip If you don't have an email address"
+            "2" => "Put 2 to Skip If you don't have an email address"
         ]);
     }
+ 
+    protected $email = $this->record->get('input');
 
     protected function afterRendering(string $argument): void
     {
-          // Access the user input using the request object
-          $input = $this->record->get('text'); 
+        
           
-
-        if ($input == "1") {
+        if (!is_numeric($email)) {
             
             return ProcessRegistrationNameAction::class;
-        } elseif ($input == "2") {
+        } elseif ($email == "2") {
             // Return Program List
              return ProgramSelectionState::class;
     }
+}
 }

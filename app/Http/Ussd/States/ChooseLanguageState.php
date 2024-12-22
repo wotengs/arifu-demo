@@ -15,10 +15,10 @@ class ChooseLanguageState extends State
 
     protected function afterRendering(string $argument): void
     {
-        $languageChoice = $this->input;  // Store language choice (1 or 2)
+       
 
-        if (in_array($languageChoice, ['1', '2'])) {
-            $this->record->set('language', $languageChoice);
+        if (in_array("input", ['1', '2'])) {
+            $this->record->set('language', "input");
             return LessonsState::class;
         }
 

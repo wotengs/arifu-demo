@@ -11,7 +11,7 @@ class FeedBackAction extends Action
     public function run(): string
     {
         $programId = $this->record->get('program_id');
-        $learner = Learners::where('phone_number', $this->session->phoneNumber)->first();
+        $learner = Learners::where('phone_number', $this->$phoneNumber)->first();
         $feedback = $this->record->get('feedback');
 
         // Save feedback to the database

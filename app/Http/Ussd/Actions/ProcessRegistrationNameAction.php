@@ -10,10 +10,10 @@ class ProcessRegistrationNameAction extends Action
 {
     public function run(): string
     {
-        $email = $this->input;  // The user's input (email)
+        
         
         // Validate the email address
-        $validator = Validator::make(['email' => $email], [
+        $validator = Validator::make(['email' => "input"], [
             'email' => 'required|email',
         ]);
 
@@ -23,13 +23,15 @@ class ProcessRegistrationNameAction extends Action
         }
 
         // If the email is valid, create the user in the database
-        $learner = Learners::where('phone_number', $this->session->phoneNumber)->first();
+        $learner = Learners::where('phone_number')->first();
+    
+        
 
         if (!$learner) {
             // Register the user with the email
             Learners::create([
-                'name' => $this->session->name,  // Assuming the name is stored in session
-                'phone_number' => $this->session->phoneNumber,
+                'name' => $this->$name,  // Assuming the name is stored in session
+                'phone_number' => $this->$phoneNumber,
                 'email' => $email,  // Store the validated email
             ]);
 

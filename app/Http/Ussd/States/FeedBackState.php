@@ -18,7 +18,7 @@ class FeedbackState extends State
 
     protected function afterRendering(string $argument): void
     {
-        $feedback = $this->input;
+        $feedback = $this->"input";
         if (in_array($feedback, ['1', '2', '3', '4'])) {
             $this->record->set('feedback', $feedback);
             return FeedBackAction::class;

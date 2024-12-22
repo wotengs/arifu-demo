@@ -18,19 +18,16 @@ class ProgramSelectionState extends State
 
     protected function afterRendering(string $argument): void
     {
-        // Handle user input after rendering
-        $input = $this->input;  // Access the input (program selection)
-
-        if (is_numeric($input)) {
-            $input = (int) $input;
+        
+        if (is_numeric("input")) {
+            $input = (int) "input";
 
             if ($input === 9) {
                 // Next page
-                $this->currentPage++;
-                return ProgramSelectionState::class;
+                return  $this->currentPage++;
             } elseif ($input === 0) {
                 // Back to the previous state or menu
-                return "Main Menu";  // Replace with the actual state for back
+                return ProgramSelectionState::class;  // Replace with the actual state for back
             } elseif ($input > 0) {
                 // Handle program selection
                 $program = Program::find($input);
