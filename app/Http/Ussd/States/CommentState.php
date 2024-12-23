@@ -2,6 +2,7 @@
 
 namespace App\Http\Ussd\States;
 
+
 use App\Http\Ussd\Actions\ProgramComments;
 use Sparors\Ussd\State;
 
@@ -10,19 +11,18 @@ class CommentState extends State
     protected function beforeRendering(): void
     {
         $this->menu
-        ->text('Please leave a comment for this program:');
+        ->text('What else did you want to learn about in this training? Reply with 1-3 sentences.');
     }
 
     protected function afterRendering(string $argument): void
     {
+         // Extract the last part of the input (this should be the language choice)
+         $parts = explode('*', $argument);
+         $input = end($parts);  // Get the last element of the array (language choice)
       
+         $this->record->set('comment', $input); // Save the user's feedback
 
-        if (!empty("input")) {
-            $this->record->set('comment', "input");
-            return ProgramComments::class;
-        }
-
-        // Re-render the comment input if no comment is provided
-        return CommentState::class;
+         $this->decision->any(ProgramComments::class); // Navigate to a state that handles invalid inputs
+        
     }
 }

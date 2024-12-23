@@ -19,17 +19,16 @@ class RegisterEmailState extends State
     protected function afterRendering(string $argument): void
     {
         
-          
+           // Extract the last part of the input (this should be the language choice)
+        $parts = explode('*', $argument);
+        $email = end($parts);  // Get the last element of the array (language choice)
         // Check if the user input is "2" to skip email
-        if ($argument === "2") {
+        if ($email === "2") {
             // Save email as null and navigate to ProgramSelectionState
             $this->record->set('email', null);
             $this->decision->equal('2', ProgramSelectionState::class);
         } else {
 
-            // Extract the name part by splitting the input at the '*' character
-         $email = explode('*', $argument)[2];  // Get the part after the '*' (i.e., the name)
-            // Save the email input
             $this->record->set('email', $email);
 
             // Process registration and navigate to ProcessRegistrationNameAction

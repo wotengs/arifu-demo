@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Ussd\States;
 
 use App\Models\Lessons;
@@ -21,10 +20,12 @@ class LessonsState extends State
             return;
         }
 
-        // Ensure the lesson index is within the available range
         if ($lessonIndex > count($lessons)) {
-            // If the user is past the available lessons, transition to another state like FeedbackState
-            $this->decision->any(FeedbackState::class);
+            // User has completed all lessons
+            $this->menu->text('You have completed all lessons.')
+                ->lineBreak()
+                ->line('1. Provide Feedback')
+                ->line('0. Back to Program Menu');
             return;
         }
 
@@ -33,31 +34,41 @@ class LessonsState extends State
         $lessonText = $languageChoice == '1' ? $lesson->english : $lesson->swahili;
 
         $this->menu->text("($lessonIndex/" . count($lessons) . ") $lessonText")
+            ->lineBreak()
             ->line('1. Next Lesson')
             ->line('0. Back to Program Menu');
     }
 
     protected function afterRendering(string $argument): void
     {
-        $lessonIndex = $this->record->get('lesson_index', 1); // Default to the first lesson
-        $programId = $this->record->get('program_id'); // Get the selected program ID
+        $parts = explode('*', $argument);
+        $navigation = end($parts); // Get the user's selection
+        $lessonIndex = $this->record->get('lesson_index', 1); // Current lesson index
+        $programId = $this->record->get('program_id'); // Selected program ID
         $lessons = Lessons::where('program_id', $programId)->get(); // Get lessons for the selected program
 
-        // Ensure the lesson index is within the available range
         if ($lessonIndex > count($lessons)) {
-            // If the lesson index exceeds the available lessons, move to another state like FeedbackState
-            $this->decision->any(FeedbackState::class);
+            // After all lessons, handle feedback or return to program menu
+            if ($navigation === '1') {
+                $this->decision->any(FeedbackState::class);
+            } elseif ($navigation === '0') {
+                $this->record->set('lesson_index', 1); // Reset for next use
+                $this->decision->any(ProgramSelectionState::class);
+            } else {
+                $this->decision->any(LessonsState::class); // Re-render for invalid input
+            }
             return;
         }
 
-        if ($argument == '1') {
-            // User wants to go to the next lesson
-            $lessonIndex = $this->record->get('lesson_index', 1);
-            $this->record->set('lesson_index', $lessonIndex + 1);
-            $this->decision->any(LessonsState::class); // Keep in the current state, show next lesson
-        } elseif ($argument == '0') {
-            // User wants to go back to ProgramSelectionState
+        if ($navigation === '1') {
+            $this->record->set('lesson_index', $lessonIndex + 1); // Move to next lesson
+            $this->decision->any(LessonsState::class);
+        } elseif ($navigation === '0') {
+            $this->record->set('lesson_index', 1); // Reset lesson index
             $this->decision->any(ProgramSelectionState::class);
+        } else {
+            // Invalid input, re-render the current lesson
+            $this->decision->any(LessonsState::class);
         }
     }
 }

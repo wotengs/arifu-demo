@@ -9,7 +9,7 @@ class RegistrationSuccessState extends State
    
         public function beforeRendering(): void
 {
-    $this->menu->text('You have successfully registered. Welcome!');
+    $this->menu->text('Welcome!');
 }
     
 

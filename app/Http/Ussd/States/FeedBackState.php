@@ -10,7 +10,7 @@ class FeedbackState extends State
     protected function beforeRendering(): void
     {
         $this->menu->text('How satisfied are you with this training? Reply with a number:')
-        ->lineBreak()
+            ->lineBreak()
             ->line('1. Very satisfied')
             ->line('2. A little satisfied')
             ->line('3. Not so satisfied')
@@ -19,13 +19,15 @@ class FeedbackState extends State
 
     protected function afterRendering(string $argument): void
     {
-        $feedback = $this->"input";
-        if (in_array($feedback, ['1', '2', '3', '4'])) {
-            $this->record->set('feedback', $feedback);
-            return FeedBackAction::class;
-        }
+        $parts = explode('*', $argument);
+        $input = end($parts); // Get the user's selection
 
-        // Invalid input, re-render feedback options
-        return FeedbackState::class;
+        if (in_array($input, ['1', '2', '3', '4'])) {
+            $this->record->set('feedback', $input); // Save feedback
+            $this->decision->any(FeedBackAction::class); // Handle the feedback
+        } else {
+            // Invalid input, re-render feedback options
+            $this->decision->any(FeedbackState::class);
+        }
     }
 }

@@ -11,8 +11,10 @@ class Comment extends Model
 
     protected $fillable = [
         'learners_id',
-        'program_id',
-        'comment',
+        'program_id' ,
+        'commentable_id',
+        'commentable_type',
+        'comment', // Generating a random comment string
     ];
 
     public function commentable()

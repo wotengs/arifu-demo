@@ -20,18 +20,22 @@ class ProgramSelectionState extends State
 
     protected function afterRendering(string $argument): void
     {
+         // Extract the last part of the input (this should be the language choice)
+         $parts = explode('*', $argument);
+         $input = end($parts);  // Get the last element of the array (language choice)
+
         $this->record->set('current_page', 1);
-        $this->record->set('program_id', $argument);
+        $this->record->set('program_id', $input);
 
         
-        if ($argument === '98') {
+        if ($input === '98') {
             // Increment current page and store it in the session
             $currentPage = $this->record->get('current_page') + 1;
             $this->record->set('current_page', $currentPage);
 
             // Stay in the same state and re-render
             $this->decision->any(ProgramSelectionState::class);
-        } elseif ($argument === '0') {
+        } elseif ($input === '0') {
             // Reset current page when going back to main menu
             $this->record->set('current_page', 1);
             $this->decision->any(ProgramSelectionState::class);  // Assuming MainMenuState is the starting point

@@ -2,8 +2,6 @@
 
 namespace App\Http\Ussd\States;
 
-use App\Models\Lessons;
-use Error;
 use Sparors\Ussd\State;
 
 class ChooseLanguageState extends State
@@ -11,23 +9,29 @@ class ChooseLanguageState extends State
     protected function beforeRendering(): void
     {
         $this->menu->text('Choose your preferred language:')
-        ->lineBreak()
+            ->lineBreak()
             ->line('1. English')
             ->line('2. Swahili');
     }
 
     protected function afterRendering(string $argument): void
     {
-           // Extract the name part by splitting the input at the '*' character
-           //$name = explode('*', $argument)[1];  // Get the part after the '*' (i.e., the name)
-         // Pagination controls
-         if ($argument == "1") {
+        // Extract the last part of the input (this should be the language choice)
+        $parts = explode('*', $argument);
+        $languageChoice = end($parts);  // Get the last element of the array (language choice)
+
+        // Handle pagination and language choice
+        if ($languageChoice === '1') {
+            // Set language as English
             $this->record->set('language', 1);
-        }elseif ($argument == "2") {
+            $this->decision->any(LessonsState::class);
+        } elseif ($languageChoice === '2') {
+            // Set language as Swahili
             $this->record->set('language', 2);
+            $this->decision->any(LessonsState::class);
+        } else {
+            // If the input is not recognized, ask the user again
+            $this->decision->any(ChooseLanguageState::class);
         }
-       
-        $this->decision->in([1, 2], LessonsState::class)
-        ->any(Error::class); // Navigate to a state that handles invalid inputs
     }
 }

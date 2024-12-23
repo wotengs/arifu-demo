@@ -13,6 +13,9 @@ class Satisfactions extends Model
         'learners_id',
         'program_id',
         'satisfaction_level', // Renamed to match the migration and seeder
+        'satisfiable_id' ,
+        'satisfiable_type',
+    
     ];
 
     // Relationship to the related models (Program)
