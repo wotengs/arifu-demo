@@ -9,6 +9,7 @@ class ChooseLanguageState extends State
     protected function beforeRendering(): void
     {
         $this->menu->text('Choose your preferred language:')
+        ->lineBreak()
             ->line('1. Swahili')
             ->line('2. English');
     }

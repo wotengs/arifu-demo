@@ -1,44 +1,56 @@
 <?php
 
+
 namespace App\Http\Ussd\Actions;
 
 use Sparors\Ussd\Action;
 use App\Models\Learners;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Ussd\States\RegisterEmailState;
+use App\Http\Ussd\States\RegistrationSuccessState;
 
 class ProcessRegistrationNameAction extends Action
 {
     public function run(): string
     {
-        
-        
-        // Validate the email address
-        $validator = Validator::make(['email' => "input"], [
-            'email' => 'required|email',
-        ]);
+        // Retrieve session data
+        $name = $this->record->get('full_name'); //1*Martin Mwangi
+        $email = $this->record->get('email');   //1*Martin Mwangi*2001mwangi@gmail.com
+        $phoneNumber = $this->record->get('phoneNumber');
 
-        if ($validator->fails()) {
-            // If the email is invalid, prompt the user to re-enter the email
-            return "The email you entered is invalid. Please enter a valid email address.";
-        }
-
-        // If the email is valid, create the user in the database
-        $learner = Learners::where('phone_number')->first();
     
-        
+        // Check if learner is already registered
+        $learner = Learners::where('phone_number', $phoneNumber)->first();
 
         if (!$learner) {
-            // Register the user with the email
+            // Register the learner
             Learners::create([
-                'name' => $this->$name,  // Assuming the name is stored in session
-                'phone_number' => $this->$phoneNumber,
-                'email' => $email,  // Store the validated email
+                'name' => $name,
+                'phone_number' => $phoneNumber,
+                'email' => $email, // Can be null
             ]);
 
-            return "You have successfully registered. Welcome!";
+            // Redirect to success state
+            return RegistrationSuccessState::class;
         }
 
-        return "You are already registered.";
+        // If learner exists, handle appropriately (e.g., show error or re-register).
     }
 }
 
+
+
+  // // Validate email if provided
+        // if ($email !== null) {
+        //     $validator = Validator::make(
+        //         ['email' => $email],
+        //         ['email' => ['required', 'email', 'unique:learners,email']]
+        //     );
+
+
+        //     if ($validator->fails()) {
+        //         // Save error message to session and return to email input state
+        //         $this->record->set('error_message', 'The email you entered is invalid. Please enter a valid email address.');
+        //         return RegisterEmailState::class;
+        //     }
+        // }

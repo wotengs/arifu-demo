@@ -47,10 +47,11 @@ class ProgramSelectionState extends State
     {
         $programs = Program::paginate(3, ['*'], 'page', $page);  // 3 programs per page
 
-        $menu = new Menu();
-        $menu->text('Select a Program')
-            ->lineBreak(1);
+        $menu =  $this->menu->text('Select a Program')
+        ->lineBreak(1);
 
+       
+                       
         // Display the programs
         foreach ($programs as $index => $program) {
             $menu->line(($index + 1) . ". " . $program->name);

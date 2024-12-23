@@ -10,6 +10,7 @@ class FeedbackState extends State
     protected function beforeRendering(): void
     {
         $this->menu->text('How satisfied are you with this training? Reply with a number:')
+        ->lineBreak()
             ->line('1. Very satisfied')
             ->line('2. A little satisfied')
             ->line('3. Not so satisfied')

@@ -3,27 +3,25 @@
 namespace App\Http\Ussd\States;
 
 use Sparors\Ussd\State;
-use Sparors\Ussd\Menu;
 
 class RegisterNameState extends State
 {
-    
-
     protected function beforeRendering(): void
     {
-        $this->menu = new Menu([
-            "1" => "Please enter your full name:",
-        ]);
-
-        
+        $this->menu
+            ->line('Please enter your full name:');
     }
-    
-    protected $name = $this->record->get('input');
-    
+
     protected function afterRendering(string $argument): void
     {
-       
-        // Here, you'd validate the name and move to the next state
-        return RegisterEmailState::class;
+
+          // Extract the name part by splitting the input at the '*' character
+         $name = explode('*', $argument)[1];  // Get the part after the '*' (i.e., the name)
+        // Store the user's input (full name) in the record
+        $this->record->set('full_name', $name);
+
+        // Navigate to RegisterEmailState
+        $this->decision
+            ->any(RegisterEmailState::class);
     }
 }

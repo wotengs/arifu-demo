@@ -9,7 +9,8 @@ class CommentState extends State
 {
     protected function beforeRendering(): void
     {
-        $this->menu->text('Please leave a comment for this program:');
+        $this->menu
+        ->text('Please leave a comment for this program:');
     }
 
     protected function afterRendering(string $argument): void

@@ -2,6 +2,7 @@
 
 namespace App\Http\Ussd\States;
 
+use Error;
 use Sparors\Ussd\State;
 
 class RegistrationState extends State
@@ -24,21 +25,8 @@ class RegistrationState extends State
     protected function afterRendering(string $argument): void
     {
         $this->decision
-            ->equal('1', RegisterNameState::class) // Navigate to RegisterNameState for option 1
-            ->equal('2', 
-                // Show information and stay in the current state
-                $this->menu
-                ->text(
-                    "Arifu is a learning platform that provides free courses to learners. Visit our website at www.arifu.com"
-                )
-            )
-            ->any(
-                // Handle invalid input by reloading the current menu
-                $this->menu
-                ->text("Invalid choice. Please try again.")
-                ->lineBreak()
-                    ->line('1. Register')
-                    ->line('2. Learn more about Arifu')
-                            );
+        ->equal('1', RegisterNameState::class) // Navigate to RegisterNameState for option 1
+        ->equal('2', LearnMoreState::class) // Navigate to a dedicated LearnMoreState
+        ->any(Error::class); // Navigate to a state that handles invalid inputs
     }
 }
