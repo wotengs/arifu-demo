@@ -39,11 +39,14 @@ class ProgramSelectionState extends State
             // Reset current page when going back to main menu
             $this->record->set('current_page', 1);
             $this->decision->any(ProgramSelectionState::class);  // Assuming MainMenuState is the starting point
-        } else {
+        } elseif($input > 0 && $input <= Program::count()) {
             // For choosing a program or other selections, continue with the next decision
-            $this->decision->between(1, Program::count(), ChooseLanguageState::class)
-                ->any(ProgramSelectionState::class);
+            $this->decision
+                ->any(ChooseLanguageState::class);
         }
+           // For choosing a program or other selections, continue with the next decision
+           $this->decision
+           ->any(ProgramSelectionState::class);
     }
 
     private function listPrograms(int $page): void

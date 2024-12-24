@@ -23,10 +23,10 @@ class RegisterEmailState extends State
         $parts = explode('*', $argument);
         $email = end($parts);  // Get the last element of the array (language choice)
         // Check if the user input is "2" to skip email
-        if ($email === "2") {
+        if ($email === '2') {
             // Save email as null and navigate to ProgramSelectionState
             $this->record->set('email', null);
-            $this->decision->equal('2', ProgramSelectionState::class);
+            $this->decision->any(ProcessRegistrationNameAction::class);
         } else {
 
             $this->record->set('email', $email);
