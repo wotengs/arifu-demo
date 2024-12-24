@@ -18,25 +18,25 @@ class SatisfactionWidgets extends BaseWidget
             Stat::make('Very Satisfied', Satisfactions::where('satisfaction_level', 1)
                 ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
                 ->count())
-                ->description('A Month From Now')
+                ->description('A Month Ago From Now')
                 ->descriptionIcon('heroicon-o-face-smile'),
                 
             Stat::make('A little satisfied', Satisfactions::where('satisfaction_level', 2)
                 ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
                 ->count())
-                ->description('A Month From Now')
+                ->description('A Month Ago From Now')
                 ->descriptionIcon('heroicon-o-face-smile'),
 
             Stat::make('Not so satisfied', Satisfactions::where('satisfaction_level', 3)
                 ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
                 ->count())
-                ->description('A Month From Now')
+                ->description('A Month Ago From Now')
                 ->descriptionIcon('heroicon-o-face-frown'),
 
             Stat::make('Not at all satisfied', Satisfactions::where('satisfaction_level', 4)
                 ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
                 ->count())
-                ->description('A Month From Now')
+                ->description('A Month Ago From Now')
                 ->descriptionIcon('heroicon-o-face-frown'),
         ];
     }

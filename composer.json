@@ -13,7 +13,8 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "samuelmwangiw/africastalking-laravel": "^1.5"
+        "samuelmwangiw/africastalking-laravel": "^1.5",
+        "sparors/laravel-ussd": "^2.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
