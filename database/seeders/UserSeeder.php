@@ -21,18 +21,19 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
-            'phone_number' => '+14306449136',
+            'phone_number' => '+254705201161',
             'password' => Hash::make('12345678'),
+            'role' => 'ADMIN',
         ]);
 
-        // Insert 19 random users
-        for ($i = 0; $i < 19; $i++) {
-            DB::table('users')->insert([
-                'name' => $faker->name,
-                'email' => $faker->unique()->safeEmail,
-                'phone_number' => $faker->phoneNumber,
-                'password' => Hash::make('password'), // or any default password
-            ]);
-        }
+        // // Insert 19 random users
+        // for ($i = 0; $i < 19; $i++) {
+        //     DB::table('users')->insert([
+        //         'name' => $faker->name,
+        //         'email' => $faker->unique()->safeEmail,
+        //         'phone_number' => $faker->phoneNumber,
+        //         'password' => Hash::make('password'), // or any default password
+        //     ]);
+        // }
     }
 }
