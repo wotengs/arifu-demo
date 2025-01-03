@@ -18,6 +18,7 @@ use Filament\Infolists;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class LessonsRelationManager extends RelationManager
@@ -82,11 +83,17 @@ class LessonsRelationManager extends RelationManager
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
-                    IconColumn::make('sent')
-                    ->boolean(),
+                    // IconColumn::make('sent')
+                    // ->boolean(),
             ])
             ->filters([
-                TernaryFilter::make('sent'),
+                // TernaryFilter::make('sent'),
+                SelectFilter::make('program')
+                ->relationship('program', 'name')
+                            ->multiple()
+                            ->searchable()
+                ->preload()
+                            ->attribute('program_id'),
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
@@ -102,8 +109,8 @@ class LessonsRelationManager extends RelationManager
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
                  ])->color('info'),
-                Action::make('Send')
-                  ->url('/'),
+                // Action::make('Send')
+                //   ->url('/'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

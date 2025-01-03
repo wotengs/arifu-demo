@@ -98,15 +98,15 @@ class LessonsResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->toggleable()->wrap()->limit(45),
-                    IconColumn::make('sent')
-    ->boolean(),
+    //                  IconColumn::make('sent')
+    // ->boolean(),
             ])
             ->filters([
     //             Filter::make('sent')
     //             ->toggle()
     //            // ->label('Status')
     // ->query(fn (Builder $query): Builder => $query->where('sent', true)),
-    TernaryFilter::make('sent'),
+    // TernaryFilter::make('sent'),
     SelectFilter::make('program')
     ->relationship('program', 'name')
                 ->multiple()

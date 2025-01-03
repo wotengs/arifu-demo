@@ -10,6 +10,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -70,6 +71,12 @@ class CommentsRelationManager extends RelationManager
             ])
             ->filters([
                 //
+                SelectFilter::make('program')
+                ->relationship('program', 'name')
+                            ->multiple()
+                            ->searchable()
+                ->preload()
+                            ->attribute('program_id'),
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
