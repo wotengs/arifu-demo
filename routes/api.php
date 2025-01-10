@@ -21,3 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Ensure this route is defined for POST requests
 Route::post('/ussd', [UssdController::class, 'index']);
+
+
+// Route::post('/ussd-event', [UssdEventController::class, 'handleEvent']);
